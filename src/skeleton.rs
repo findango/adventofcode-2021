@@ -4,13 +4,16 @@ use indoc::indoc;
 use std::fs::read_to_string;
 
 const EXAMPLE: &str = indoc! {"
+    aaaa
+    bbbb
+    cccc
 "};
 
-fn parse(input: &str) -> String {
-    String::from(input)
+fn parse(input: &str) -> Vec<String> {
+    input.lines().map(|x| x.to_string()).collect()
 }
 
-fn load_input(filename: &str) -> String {
+fn load_input(filename: &str) -> Vec<String> {
     let input = read_to_string(&filename).unwrap();
     parse(&input)
 }
@@ -21,14 +24,18 @@ mod tests {
 
     #[test]
     fn example_1() {
-        assert_eq!(7, 7);
+        let x = parse(EXAMPLE);
+        assert_eq!(3, x.iter().count());
     }
 
     #[test]
     fn example_2() {}
 
     #[test]
-    fn part_1() {}
+    fn part_1() {
+        let x = load_input("input/test.txt");
+        assert_eq!(5, x.iter().count());
+    }
 
     #[test]
     fn part_2() {}
