@@ -16,7 +16,6 @@ const EXAMPLE: &str = indoc! {"
 "};
 
 type Command = (String, usize);
-type Position = (usize, usize, usize);
 
 fn parse(input: &str) -> Vec<Command> {
     input
@@ -34,28 +33,27 @@ fn load_input(filename: &str) -> Vec<Command> {
 }
 
 fn maneuver(commands: &[Command]) -> (usize, usize) {
-    let (x, depth) = commands
+    commands
         .iter()
-        .fold((0, 0), |acc, (dir, dist)| match dir.as_str() {
-            "forward" => (acc.0 + dist, acc.1),
-            "down" => (acc.0, acc.1 + dist),
-            "up" => (acc.0, acc.1 - dist),
-            _ => acc,
-        });
-    (x, depth)
+        .fold((0, 0), |(x, depth), (dir, dist)| match dir.as_str() {
+            "forward" => (x + dist, depth),
+            "down" => (x, depth + dist),
+            "up" => (x, depth - dist),
+            _ => (x, depth),
+        })
 }
 
-fn maneuver2(commands: &[Command]) -> (usize, usize) {
-    let start_point: Position = (0, 0, 0);
-    let (x, depth, _) = commands
+fn maneuver2(commands: &[Command]) -> (usize, usize, usize) {
+    commands
         .iter()
-        .fold(start_point, |acc, (cmd, value)| match cmd.as_str() {
-            "forward" => (acc.0 + value, acc.1 + acc.2 * value, acc.2),
-            "down" => (acc.0, acc.1, acc.2 + value),
-            "up" => (acc.0, acc.1, acc.2 - value),
-            _ => acc,
-        });
-    (x, depth)
+        .fold((0, 0, 0), |(x, depth, aim), (cmd, value)| {
+            match cmd.as_str() {
+                "forward" => (x + value, depth + aim * value, aim),
+                "down" => (x, depth, aim + value),
+                "up" => (x, depth, aim - value),
+                _ => (x, depth, aim),
+            }
+        })
 }
 
 #[cfg(test)]
@@ -72,7 +70,7 @@ mod tests {
     #[test]
     fn example_2() {
         let commands = parse(EXAMPLE);
-        let (x, depth) = maneuver2(&commands);
+        let (x, depth, _) = maneuver2(&commands);
         assert_eq!(900, x * depth);
     }
 
@@ -86,7 +84,7 @@ mod tests {
     #[test]
     fn part_2() {
         let commands = load_input("input/input02.txt");
-        let (x, depth) = maneuver2(&commands);
+        let (x, depth, _) = maneuver2(&commands);
         assert_eq!(1340836560, x * depth);
     }
 }
