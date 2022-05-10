@@ -74,7 +74,7 @@ fn is_winner(board: &Board) -> bool {
     // check cols
     for i in 0..5 {
         let slice = &board[i..];
-        if slice.into_iter().step_by(5).all(|&x| return x == MARKED) {
+        if slice.into_iter().step_by(5).all(|&x| x == MARKED) {
             return true;
         }
     }
@@ -104,7 +104,7 @@ fn first_winner(boards: &Vec<Board>, nums: &Vec<usize>) -> (Board, Vec<usize>, u
         }
     }
 
-    // Not reachable with given input (always a winner)
+    // Not reachable with given input (there's always a winner)
     return (vec![], [].to_vec(), 0);
 }
 
