@@ -25,7 +25,7 @@ mod tests {
     #[test]
     fn example_1() {
         let x = parse(EXAMPLE);
-        assert_eq!(3, x.iter().count());
+        assert_eq!(3, x.len());
     }
 
     #[test]
@@ -34,7 +34,7 @@ mod tests {
     #[test]
     fn part_1() {
         let x = load_input("input/test.txt");
-        assert_eq!(5, x.iter().count());
+        assert_eq!(5, x.len());
     }
 
     #[test]

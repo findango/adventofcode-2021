@@ -9,3 +9,4 @@ Learning Rust this year.
 -   [Day 3: Binary Diagnostic](./src/day03.rs)
 -   [Day 4: Giant Squid](./src/day04.rs)
 -   [Day 5: Hydrothermal Venture](./src/day05.rs)
+-   [Day 6: Lanternfish](./src/day06.rs)
