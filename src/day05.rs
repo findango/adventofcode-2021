@@ -1,3 +1,6 @@
+// Day 5: Hydrothermal Venture
+// see https://adventofcode.com/2021/day/5
+
 #![allow(dead_code)]
 
 use indoc::indoc;

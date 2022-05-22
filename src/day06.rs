@@ -1,3 +1,6 @@
+// Day 6: Lanternfish
+// see https://adventofcode.com/2021/day/6
+
 #![allow(dead_code)]
 
 use std::fs::read_to_string;
